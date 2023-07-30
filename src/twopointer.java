@@ -26,6 +26,9 @@ public class twopointer {
             case 5: // best time to buy and sell stock
                 System.out.println(maxProfit(input.getNumArr(in)));
                 break;
+            case 6: // Microsoft SDE-1 2023
+                System.out.println(microsoftLongSubstring(input.getString(in)));
+                break;
         }
         in.close();
     }
@@ -90,6 +93,27 @@ public class twopointer {
                 j++;
             }
         }
+        return ans;
+    }
+    public static String microsoftLongSubstring(String s){
+        String ans="";
+        int i=0,j=1,aux=1,maxSub=0,temp=0,ansi=0,ansj=0;
+        while(j<s.length()){
+            if(s.charAt(j)==s.charAt(j-1)) aux++;
+            else if(s.charAt(j)!=s.charAt(j-1)) aux=1;
+            if(aux>2){
+                temp=maxSub;
+                maxSub=Math.max(maxSub,j-(i+1));
+                if(temp!=maxSub){
+                    ansi=i;
+                    ansj=j;
+                }
+                i=j-1;
+                aux=2;
+            }
+            j++;
+        }
+        ans=s.substring(ansi, ansj);
         return ans;
     }
 }

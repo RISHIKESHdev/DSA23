@@ -34,6 +34,9 @@ public class qList {
                 case "binarysearch":
                     r = new BufferedReader( new FileReader("C:\\Users\\RISHIsquad\\Desktop\\DSA23\\common\\questions\\binarysearch.txt"));
                     break;
+                case "bitmanipulation":
+                    r = new BufferedReader( new FileReader("C:\\Users\\RISHIsquad\\Desktop\\DSA23\\common\\questions\\bitmanipulation.txt"));
+                    break;
                 default:
                     r = new BufferedReader( new FileReader( "./math.txt" ));
             }

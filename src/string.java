@@ -1,5 +1,6 @@
 package src;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import common.*;
@@ -12,6 +13,9 @@ public class string {
         switch(n){
             case 1: // find longest comman prefix
                 System.out.println(longestCommonPrefix(input.getStringArr(in)));
+                break;
+            case 2: // find ranges
+                System.out.println(summaryRanges(input.getNumArrAsen(in)));
                 break;
         }
         in.close();
@@ -26,5 +30,28 @@ public class string {
             }
         }
         return prefix;
+    }
+    public static List<String> summaryRanges(int[] nums){
+        StringBuilder sb = new StringBuilder();
+        List<String> ans = (List<String>) new ArrayList<String>();
+        boolean flag = false;
+        for(int i=0;i<nums.length;i++){
+            if(i+1<nums.length && nums[i] + 1 == nums[i+1]){
+                if(!flag){
+                    sb.append(nums[i]);
+                    flag = true;
+                }
+            } else{
+                if(flag){
+                    sb.append("->");
+                    flag = false;
+                }
+                sb.append(nums[i]);
+                ((ArrayList<String>) ans).add(sb.toString());
+                sb = new StringBuilder();
+
+            }
+        }
+        return ans;
     }
 }

@@ -15,7 +15,10 @@ public class math {
                 break;
             case 2: // plus 1 in array
                 System.out.println(Arrays.toString(plusOne(input.getNumArr(in))));
-                break;    
+                break;
+            case 3: // missing number
+                System.out.println(missingNumber(input.getNumArr(in)));
+                break;
         }
         in.close();
     }
@@ -39,5 +42,12 @@ public class math {
         int[] rnums = new int[nums.length+1];
             rnums[0]=1;
             return rnums;
+    }
+    public static int missingNumber(int[] nums){
+        int sum=0;
+        for(int i=0;i<nums.length;i++){
+            sum+=nums[i];
+        }
+        return (nums.length*(nums.length+1)/2)-sum;
     }
 }

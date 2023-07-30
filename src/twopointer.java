@@ -20,6 +20,12 @@ public class twopointer {
             case 3: // remove given element in array
                 nextPermutation(input.getNumArr(in));
                 break;
+            case 4: // merge sorted array
+                merge(input.getNumArr(in),input.getNum(in),input.getNumArrAsen(in),input.getNum(in));
+                break;
+            case 5: // best time to buy and sell stock
+                System.out.println(maxProfit(input.getNumArr(in)));
+                break;
         }
         in.close();
     }
@@ -57,5 +63,33 @@ public class twopointer {
             logic.reverseIntFrom(nums, indx1+1);
         }
         System.out.println(Arrays.toString(nums));
+    }
+    public static void merge(int[] nums1,int m,int[] nums2, int n){
+        int a= m-1,b=n-1,insertIndx=nums1.length-1;
+        while(b>=0){
+            if(a>=0 && nums1[a]>nums2[b]){
+                nums1[insertIndx]=nums1[a];
+                a--;
+                insertIndx--;
+            }else{
+                nums1[insertIndx]=nums2[b];
+                b--;
+                insertIndx--;
+            }
+        }
+        System.out.println(Arrays.toString(nums1));
+    }
+    public static int maxProfit(int[] nums){
+        int ans=0,i=0,j=1;
+        while(j<nums.length){
+            if(nums[i]>nums[j]){
+                i=j;
+                j++;
+            }else{
+                ans=Math.max(nums[j]-nums[i],ans);
+                j++;
+            }
+        }
+        return ans;
     }
 }

@@ -1,1 +1,4 @@
 1. Climbing Stairs (leet 70)
+2. Pascal's Triangle (leet 118)
+3. Pascal's Triangle II (leet 119)
+5. Best Time to Buy and Sell Stock (leet 121) (Kadane's Algorithm)

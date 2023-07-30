@@ -15,10 +15,12 @@ public class hash {
             case 1://two sum
                 System.out.println(Arrays.toString(twoSum(input.getNumArr(in),input.getNum(in))));
                 break;
+            case 2://contain duplicate
+                System.out.println(containsDuplicate(input.getNumArr(in)));
+                break;
         }
         in.close();
     }
-
     public static int[] twoSum(int[] nums, int target) {
         HashMap<Integer,Integer> map = new HashMap<>();
         for(int i=0;i<nums.length;i++){
@@ -41,5 +43,13 @@ public class hash {
         //     }
         // }
         // return new int[] {};
+    }
+    public static boolean containsDuplicate(int[] nums){
+        HashMap<Integer,Integer> hash =new HashMap<>();
+        for(int i:nums){
+            if(hash.get(i)!=null) return true;
+            hash.put(i, 1);
+        }
+        return false;
     }
 }

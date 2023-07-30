@@ -20,6 +20,22 @@ public class input {
         System.out.println(Arrays.toString(arr));
         return arr;
     }
+    public static int[][] get2dNumArr(Scanner in){
+        int n,m;
+        System.out.print("Enter Row Array size: ");
+        m=in.nextInt();
+        System.out.print("Enter Column Array size: ");
+        n=in.nextInt();
+        int[][] arr = new int[n][m];
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                arr[i][j]=getNum(in);
+            }
+        }
+        System.out.print("Array: ");
+        for(int i=0;i<n;i++) System.out.println(Arrays.toString(arr[i]));
+        return arr;
+    }
     public static String getString(Scanner in){
         System.out.print("Enter a String value: ");
         String ss = in.next();

@@ -1,3 +1,5 @@
 1. Remove Duplicates from Sorted Array (leet 26)
 2. Remove Element (leet 27)
 3. Next Permutation (leet 31)
+4. Merge Sorted Array (leet 88)
+5. Best Time to Buy and Sell Stock (leet 121)

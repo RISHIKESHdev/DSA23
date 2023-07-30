@@ -1,2 +1,3 @@
 1. Palindrome Number (leet 9)
 2. Plus One (leet 66)
+3. Missing Number (leet 268)

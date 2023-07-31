@@ -37,6 +37,9 @@ public class qList {
                 case "bitmanipulation":
                     r = new BufferedReader( new FileReader("C:\\Users\\RISHIsquad\\Desktop\\DSA23\\common\\questions\\bitmanipulation.txt"));
                     break;
+                case "array":
+                    r = new BufferedReader( new FileReader("C:\\Users\\RISHIsquad\\Desktop\\DSA23\\common\\questions\\array.txt"));
+                    break;
                 default:
                     r = new BufferedReader( new FileReader( "./math.txt" ));
             }

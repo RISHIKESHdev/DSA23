@@ -29,6 +29,9 @@ public class twopointer {
             case 6: // Microsoft SDE-1 2023
                 System.out.println(microsoftLongSubstring(input.getString(in)));
                 break;
+            case 7: // Move Zeroes
+                System.out.println(Arrays.toString(moveZeroes(input.getNumArr(in))));
+                break;
         }
         in.close();
     }
@@ -115,5 +118,20 @@ public class twopointer {
         }
         ans=s.substring(ansi, ansj);
         return ans;
+    }
+    public static int[] moveZeroes(int[] nums){
+        if(nums.length!=1){
+            int i=0,j=0,temp=0;
+            while(j<nums.length){
+                if(nums[j]!=0){
+                    temp=nums[i];
+                    nums[i]=nums[j];
+                    nums[j]=temp;
+                    i++;
+                }
+                j++;
+            }
+        }
+        return nums;
     }
 }

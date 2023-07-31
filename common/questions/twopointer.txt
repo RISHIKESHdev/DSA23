@@ -4,3 +4,4 @@
 4. Merge Sorted Array (leet 88)
 5. Best Time to Buy and Sell Stock (leet 121)
 6. Longest Substring Without Two Contiguous Occurrences of Letter Solution (Microsoft SDE-1 2023)
+7. Move Zeroes (leet 283)

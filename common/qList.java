@@ -40,6 +40,9 @@ public class qList {
                 case "array":
                     r = new BufferedReader( new FileReader("C:\\Users\\RISHIsquad\\Desktop\\DSA23\\common\\questions\\array.txt"));
                     break;
+                case "recursion":
+                    r = new BufferedReader( new FileReader("C:\\Users\\RISHIsquad\\Desktop\\DSA23\\common\\questions\\recursion.txt"));
+                    break;
                 default:
                     r = new BufferedReader( new FileReader( "./math.txt" ));
             }

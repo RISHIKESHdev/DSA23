@@ -20,6 +20,9 @@ public class binarysearch {
             case 3: // search in a 2D matrix
                 System.out.println(searchMatrix(input.get2dNumArr(in),input.getNum(in)));
                 break;
+            case 4: // count negative in a 2D matrix
+                System.out.println(countNegatives(input.get2dNumArr(in)));
+                break;
         }
         in.close();
     }
@@ -82,5 +85,21 @@ public class binarysearch {
             }
         }
        return false;
+    }
+
+    public static int countNegatives(int[][] grid){
+        int l=0,r=grid[0].length-1,m=-1,res=0;
+        for(int[] row:grid){
+            while(l<=r){
+                m=(l+r)/2;
+                if(row[m]<0) r=m-1;
+                else l=m+1;
+            }
+            res=res+grid[0].length-l;
+            l=0;
+            r=grid[0].length-1;
+            m=-1;
+        }
+        return res;
     }
 }

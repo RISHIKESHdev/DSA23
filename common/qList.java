@@ -43,6 +43,9 @@ public class qList {
                 case "recursion":
                     r = new BufferedReader( new FileReader("C:\\Users\\RISHIsquad\\Desktop\\DSA23\\common\\questions\\recursion.txt"));
                     break;
+                case "stack":
+                    r = new BufferedReader( new FileReader("C:\\Users\\RISHIsquad\\Desktop\\DSA23\\common\\questions\\stack.txt"));
+                    break;
                 default:
                     r = new BufferedReader( new FileReader( "./math.txt" ));
             }

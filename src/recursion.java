@@ -1,7 +1,6 @@
 package src;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 import common.*;
@@ -13,13 +12,13 @@ public class recursion {
         int n = input.getNum(in);
         switch(n){
             case 1: // find combinations
-                System.out.println(combine(input.getNum(in)));
+                System.out.println(combine(input.getNum(in),input.getNum(in)));
                 break;
         }
         in.close();
     }
-    public static List<List<Integer>> combine(int n, int k) {
-        List<List<Integer>> result = new ArrayList<>();
+    public static ArrayList<ArrayList<Integer>> combine(int n, int k) {
+        ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
         generateCombinations(1,n,k,new ArrayList<Integer>(),result);
         return result;
     }
@@ -27,9 +26,9 @@ public class recursion {
     /////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////
-    private static void generateCombinations(int start, int n, int k, List<Integer> combination, List<List<Integer>> result) {
+    private static void generateCombinations(int start, int n, int k, ArrayList<Integer> combination, ArrayList<ArrayList<Integer>> result) {
         if (k == 0) {
-            result.add(new ArrayList<>(combination));
+            result.add(combination);
             return;
         }
         for (int i = start; i <= n - k + 1; i++) {

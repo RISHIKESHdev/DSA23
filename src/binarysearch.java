@@ -60,6 +60,9 @@ public class binarysearch {
             case 16 : //House robber IV
                 System.out.println(minCapability(input.getNumArr(in),input.getNum(in)));
                 break;
+            case 17 : //Aggressive Cows
+                System.out.println(aggressiveCows(input.getNumArr(in),input.getNum(in)));
+                break;
         }
         in.close();
     }
@@ -109,6 +112,18 @@ public class binarysearch {
                 if(k==0) return true;
             }
         }
+        return false;
+    }
+    public static boolean isPossible(int a[], int n, int cows, int minDist) {
+        int count = 1;
+        int prev = a[0];
+        for (int i = 1; i < n; i++) {
+            if (a[i]-prev >= minDist) {
+                count++;
+                prev = a[i];
+            }
+        }
+        if (count >= cows) return true;
         return false;
     }
     /////////////////////////////////////////////////////////////////////////////////////
@@ -423,5 +438,16 @@ public static int findMiddleOccurceArr(int[]nums,int target)
             }
         }
         return l;
+    }
+    public static int aggressiveCows(int[] stalls,int k) {
+        int n= stalls.length;
+        Arrays.sort(stalls);
+        int l=1,r=stalls[n-1]-stalls[0],m=-1;
+        while(l<=r){
+            m=(l+r)/2;
+            if(isPossible(stalls,n,k,m)) l=m+1;
+            else r=m-1;
+        }
+        return r;
     }
 }

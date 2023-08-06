@@ -1,0 +1,7 @@
+according to newton’s method
+x(K+1) = x(K) – f(x) / f’(x)        
+here    f(x)  = x^(N) – A
+so    f’(x) = N*x^(N - 1)
+and     x(K) denoted the value of x at Kth iteration
+putting the values and simplifying we get,
+x(K + 1) = (1 / N) * ((N - 1) * x(K) + A / x(K) ^ (N - 1))

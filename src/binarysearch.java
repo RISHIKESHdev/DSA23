@@ -1,5 +1,6 @@
 package src;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -26,6 +27,39 @@ public class binarysearch {
             case 5: // arrange coins
                 System.out.println(arrangeCoins(input.getNum(in)));
                 break;
+            case 6: // Find Right Interval
+                System.out.println(Arrays.toString(findRightInterval(input.get2dNumArr(in))));
+                break;
+            case 7: // Find Nearer Index
+                System.out.println(findNearIndx(input.getNumArr(in),input.getNum(in)));
+                break;
+            case 8: // Search in a rotated array
+                System.out.println(search(input.getNumArr(in),input.getNum(in)));
+                break;
+            case 9: // Find single element
+                System.out.println(singleNonDuplicate(input.getNumArr(in)));
+                break;
+            case 10: // Find Nth root
+                System.out.println(NthRoot(input.getNum(in),input.getNum(in)));
+                break;
+            case 11: // Koko eating bannana
+                System.out.println(minEatingSpeed(input.getNumArr(in),input.getNum(in)));
+                break;
+            case 12 : //Median in a row-wise sorted Matrix
+                System.out.println(median(input.get2dNumArr(in),input.getNum(in),input.getNum(in)));
+                break;
+            case 13 : //Find Smallest Letter Greater Than Target
+                System.out.println(nextGreatestLetter(input.getCharArr(in),input.getChar(in)));
+                break;
+            case 14: //Find the middle occurrence of X in the given array
+                System.out.println(findMiddleOccurceArr(input.getNumArrAsen(in),input.getNum(in)));
+                break;
+            case 15 : //Counting elements in two arrays
+                System.out.println(countEleLessThanOrEqual(input.getNumArr(in),input.getNumArr(in),input.getNum(in),input.getNum(in)));
+                break;
+            case 16 : //House robber IV
+                System.out.println(minCapability(input.getNumArr(in),input.getNum(in)));
+                break;
         }
         in.close();
     }
@@ -37,6 +71,45 @@ public class binarysearch {
             ans[1]=binsearchtwoind(nums,target,false);
         }
         return ans;
+    }
+    public static boolean findHour(int[] piles, int h, int k){
+        for (int p : piles) {
+			h -= (int)((p + k-1) / (double)k);
+			if (h < 0) return false;
+		}
+		return true;
+    }
+    public static int findless(int[][]matrix,int r,int tar)
+    {
+        int idx=-1;
+        int lo=0;
+        int hi=matrix[r].length-1;
+        while(lo<=hi)
+        {
+            int mid=(lo+hi)/2;
+            if(matrix[r][mid]<=tar)
+            {
+                idx=mid;
+                lo=mid+1;
+            }
+            else
+            {
+                hi=mid-1;
+            }
+        }
+        int nele=idx+1;
+        return nele;
+    }
+    public static boolean isPossible(int[] nums,int mid,int k){
+        int lastStolenIndex = -2;
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]<=mid && lastStolenIndex + 1 < i){
+                lastStolenIndex=i;
+                k=k-1;
+                if(k==0) return true;
+            }
+        }
+        return false;
     }
     /////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////
@@ -121,5 +194,234 @@ public class binarysearch {
       }
     }
     return (int)right;
+    }
+    public static int[] findRightInterval(int[][] intervals) {
+        int l=0,r= intervals.length-1,m=-1;
+        int start[][]=new int[r+1][];
+        int ans[]=new int[r+1];
+        for(int i=0;i<=intervals.length-1;i++){
+            start[i]=new int[] {intervals[i][0],i};
+        }
+        Arrays.sort(start, (a, b) -> Integer.compare(a[0],b[0]));
+        for(int i=0;i<=intervals.length-1;i++){
+            l=0;
+            r= intervals.length-1;
+            m=-1;
+            while(l<=r){
+                m=(l+r)/2;
+                if(start[m][0]<intervals[i][1]) l=m+1;
+                else if(start[m][0]>=intervals[i][1]) r=m-1;
+            }
+            if(l<intervals.length) ans[i]=start[l][1];
+            else ans[i]=-1;
+        }
+        return ans;
+    }
+    public static int findNearIndx(int[] nums,int target){
+        int l=0,r=nums.length-1,m=-1;
+        while(l<r){
+            m=l+(r-l)/2;
+            if(nums[m]<target){
+                l=m+1;
+            }else{
+                r=m;
+            }
+        }
+        return l;
+    }
+    public static int search(int[] nums, int target) {
+        int start=0;
+        int end=nums.length-1;
+        int mid=0;
+        while(start<=end){
+            mid=start+(end-start)/2;
+            if(nums[mid]==target)
+                return mid;
+            if(nums[start]<=nums[mid]){
+                if(nums[start]<=target && target<nums[mid])
+                    end=mid-1;
+                else
+                    start=mid+1;
+            }
+            else{
+                if(nums[end]>=target && target>nums[mid])
+                    start=mid+1;
+                else
+                    end=mid-1;
+            }
+        }
+        return -1;
+    }
+    public static int singleNonDuplicate(int[] nums) {
+        int size = nums.length;
+        if(size == 1)
+           return nums[0];
+        if(nums[0] != nums[1])
+           return nums[0];
+        if(nums[size - 1] != nums[size - 2])
+           return nums[size - 1];
+        int start = 1;
+        int end = size - 2;
+        while(start <= end){
+            int mid = start + (end - start)/2;
+            if(nums[mid] != nums[mid - 1] && nums[mid] != nums[mid + 1])
+                return nums[mid];
+            if(mid % 2 == 1 && nums[mid] == nums[mid - 1] ||mid % 2 == 0 && nums[mid] == nums[mid + 1]){
+                start = mid + 1;
+            }
+            else{
+                end = mid - 1;
+            }
+        }
+        return -1;
+    }
+    public static int NthRoot(int N, int A)
+    {
+        double xPre = Math.random() % 10;
+        double eps = 0.001;
+        double delX = 2147483647;
+        double xK = 0.0;
+        while (delX > eps)
+        {
+            xK = (((N - 1.0) * xPre) +
+            ((double)A / Math.pow(xPre, N - 1))) / (double)N;
+            delX = Math.abs(xPre-xK);
+            xPre = xK;
+            if(Math.pow((int)xK,N)==A) return (int)xK;
+        }
+     return -1;
+}
+public static int minEatingSpeed(int[] piles, int h) {
+        int n = piles.length;
+        long sum=0;
+        for(int i:piles) sum+=i;
+        int l=(int)(sum/h),r=(int)(sum/(h-n+1)),m=0;
+        while(l<=r){
+            m=(l+r)/2;
+            if(findHour(piles,h,m)) r=m-1;
+            else l=m+1;
+        }
+        return l;
+    }
+    public static int median(int matrix[][], int R, int C) {
+        int l=1;
+        int r=(int)1e9;
+        int median=0;
+        int n=matrix.length;
+        int m=matrix[0].length;
+        int total=n*m;
+        while(l<=r)
+        {
+            int mid=(l+r)/2;
+            int nele=0;
+            for(int row=0;row<n;row++)
+            {
+                nele=nele+findless(matrix,row,mid);
+            }
+            if(nele>total/2)
+            {
+                median=mid;
+                r=mid-1;
+            }
+            else
+            {
+                l=mid+1;
+            }
+        }
+        return median;
+}
+public static char nextGreatestLetter(char[] letters, char target) {
+    if((int)target>=(int)letters[letters.length-1] || (int)target<(int)letters[0]) return letters[0];
+    int l=0,r=letters.length-1,m;
+    while(l<r){
+        m=(r+l)/2;
+        if((int)letters[m]>(int)target) r=m;
+        else if((int)letters[m]<=(int)target) l=m+1;
+    }
+    return letters[l];
+}
+public static int findMiddleOccurceArr(int[]nums,int target)
+    {
+        int l=0;
+        int r=nums.length-1;
+        int start=0,end=0;
+        for(int i=0;i<=1;i++){
+            l=0;
+        r=nums.length-1;
+            while(l <= r) 
+        {
+            int mid = (l+r)/2;
+            if(nums[mid] == target) 
+            {
+                if(i==0){
+                    start = mid;
+                r = mid-1;
+                }else{
+                end = mid;
+                l = mid+1;
+                }
+            }
+            else if(nums[mid] > target) 
+            {
+                 r = mid-1;   
+            }
+            else 
+            {
+                l = mid+1 ;
+            }
+        }
+        }
+        return (int)(start+end)/2;
+    }
+     public static ArrayList<Integer> countEleLessThanOrEqual(int arr1[], int arr2[], int m, int n)
+    {
+       Arrays.sort(arr2);
+       ArrayList<Integer>ans=new ArrayList<>();
+       for(int i=0;i<arr1.length;i++)
+       {
+           int count=0;
+           int target=arr1[i];
+           int lo=0;
+           int hi=arr2.length-1;
+           while(lo<=hi)
+           {
+               int mid=(lo)+(hi-lo)/2;
+               if(arr2[mid]==target)
+               {
+                   count=count+mid-lo+1;
+                   lo=mid+1;
+               }
+               else if(arr2[mid]<target)
+               {
+                   count+=mid-lo+1;
+                   lo=mid+1;
+               }
+               else{
+                   if(arr2[mid]>target)
+                   {
+                       hi=mid-1;
+                   }
+               }
+           }
+           ans.add(count);
+       }
+       return ans;
+    }
+    public static int minCapability(int[] nums, int k) {
+        int max = Integer.MIN_VALUE, min = Integer.MAX_VALUE;
+        for (int num : nums) {
+            max = Math.max(max, num);
+            min = Math.min(min, num);
+        }
+        int l=min,r=max,m=-1;
+        while(l<r){
+            m=(l+r)/2;
+            if(isPossible(nums,m,k)){
+                r=m;
+            }else{
+                l=m+1;
+            }
+        }
+        return l;
     }
 }

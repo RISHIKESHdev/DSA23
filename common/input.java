@@ -41,12 +41,28 @@ public class input {
         String ss = in.next();
         return ss;
     }
+    public static char getChar(Scanner in){
+        System.out.print("Enter a String value: ");
+        char ss = in.next().charAt(0);
+        return ss;
+    }
     public static String[] getStringArr(Scanner in){
         System.out.print("Enter Array size: ");
         int n=in.nextInt();
         String arr[] = new String[n];
         for(int i=0;i<n;i++){
             arr[i]=getString(in);
+        }
+        System.out.print("Array: ");
+        System.out.println(Arrays.toString(arr));
+        return arr;
+    }
+    public static char[] getCharArr(Scanner in){
+        System.out.print("Enter Array size: ");
+        int n=in.nextInt();
+        char arr[] = new char[n];
+        for(int i=0;i<n;i++){
+            arr[i]=getChar(in);
         }
         System.out.print("Array: ");
         System.out.println(Arrays.toString(arr));

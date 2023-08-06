@@ -1,5 +1,16 @@
-1. Find First and Last Position of Element in Sorted Array (leet 34)
-2. Search Insert Position (leet 35)
-3. Search a 2D Matrix (leet 74)
-4. Count Negative Numbers in a Sorted Matrix (leet 1351)
-5. Arranging Coins (leet 441)
+1.  Find First and Last Position of Element in Sorted Array (leet 34)
+2.  Search Insert Position (leet 35)
+3.  Search a 2D Matrix (leet 74)
+4.  Count Negative Numbers in a Sorted Matrix (leet 1351)
+5.  Arranging Coins (leet 441)
+6.  Find Right Interval (leet 436)
+7.  Given a sorted array of size “N”; find the index of the number in the array which is just greater than x and as close as possible to x.
+8.  Search in Rotated Sorted Array (leet 33)
+9.  Single element in a sorted array (leet 540)
+10. Find nth root (Newton's Formula)
+11. Koko Eating Bananas (leet 875)
+12. Median in a row-wise sorted Matrix (GFG)
+13. Find Smallest Letter Greater Than Target (leet 744)
+14. Find the middle occurrence of X in the given array
+15. Counting elements in two arrays
+16. House Robber IV (leet 2560)

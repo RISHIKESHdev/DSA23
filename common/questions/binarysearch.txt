@@ -15,3 +15,5 @@
 15. Counting elements in two arrays
 16. House Robber IV (leet 2560)
 17. Aggressive Cows (GFG)
+18. Allocate minimum number of pages (GFG)
+19. Frog Jump II (leet 2498)

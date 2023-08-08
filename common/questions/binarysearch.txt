@@ -17,3 +17,4 @@
 17. Aggressive Cows (GFG)
 18. Allocate minimum number of pages (GFG)
 19. Frog Jump II (leet 2498)
+20. Minimize the Maximum Difference of Pairs (2616)

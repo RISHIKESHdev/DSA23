@@ -70,6 +70,9 @@ public class binarysearch {
             case 19 : //Allocate minimum number of pages
                 System.out.println(maxJump(input.getNumArrAsen(in)));
                 break;
+            case 20 : //Minimize the Maximum Difference of Pairs
+                System.out.println(minimizeMax(input.getNumArr(in),input.getNum(in)));
+                break;
         }
         in.close();
     }
@@ -169,6 +172,17 @@ public class binarysearch {
             }
         }
         return true;
+    }
+    private static int countValidPairs(int[] nums, int threshold) {
+        int index = 0, count = 0;
+        while (index < nums.length - 1) {
+            if (nums[index + 1] - nums[index] <= threshold) {
+                count++;
+                index++;
+            }
+            index++;
+        }
+        return count;
     }
     /////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////
@@ -525,5 +539,17 @@ public static int findMiddleOccurceArr(int[]nums,int target)
             }
         }
         return minJump;
+    }
+    public static int minimizeMax(int[] nums, int p) {
+        if(p==0) return 0;
+        Arrays.sort(nums);
+        int n = nums.length;
+        int l=0,r=nums[n-1]-nums[0],m=-1;
+        while(l<r){
+            m=(l+r)/2;
+            if(countValidPairs(nums,m)>=p) r=m;
+            else l=m+1;
+        }
+        return l;
     }
 }

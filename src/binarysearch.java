@@ -73,6 +73,9 @@ public class binarysearch {
             case 20 : //Minimize the Maximum Difference of Pairs
                 System.out.println(minimizeMax(input.getNumArr(in),input.getNum(in)));
                 break;
+            case 21 : //Maximum number of stock portfolios
+                System.out.println(deShawMaxPort(input.getNumArr(in),input.getNum(in)));
+                break;
         }
         in.close();
     }
@@ -551,5 +554,24 @@ public static int findMiddleOccurceArr(int[]nums,int target)
             else l=m+1;
         }
         return l;
+    }
+    public static boolean deShawMaxPortPossible(int[] nums,int k,int m){
+        int total=m*k;
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]>=m) total=total-m;
+            else total=total-nums[i];
+        }
+        return total<=0;
+    }
+    public static int deShawMaxPort(int[] nums,int k){
+        int l=0,r=(int)1e9,ans=0,m=-1;
+        while(l<=r){
+            m=(l+r)/2;
+            if(deShawMaxPortPossible(nums,k,m)){
+                ans=m;
+                l=m+1;
+            }else r=m-1;
+        }
+        return ans;
     }
 }

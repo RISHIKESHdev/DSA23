@@ -2,8 +2,12 @@ package src;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import common.*;
 
@@ -75,6 +79,24 @@ public class binarysearch {
                 break;
             case 21 : //Maximum number of stock portfolios
                 System.out.println(deShawMaxPort(input.getNumArr(in),input.getNum(in)));
+                break;
+            case 22 : //minimize maximum possible value Google
+                System.out.println(googleMinArr(input.getNumArr(in)));
+                break;
+            case 23 : //longest contigious subarray of equal value Amazon
+                System.out.println(amazonLongSubArr(input.getNumArr(in),input.getNum(in)));
+                break;
+            case 24: //Job Scheduler (PayPal)
+                System.out.println(paypalJobSchedule(input.getNum(in),input.getNum(in),input.getNum(in)));
+                break;
+            case 25: //Time for truck to deliver (Infosys)
+                System.out.println(infosysTruckTime(input.getNum(in),input.getNumArr(in)));
+                break;
+            case 26: //Maximum possible greatness in a Array
+                System.out.println(maxPosGreat(input.getNumArrAsen(in)));
+                break;
+            case 27: //Maximum Chocolate in Triangle days.
+                System.out.println(maxChacoDay(input.getNum(in)));
                 break;
         }
         in.close();
@@ -176,7 +198,7 @@ public class binarysearch {
         }
         return true;
     }
-    private static int countValidPairs(int[] nums, int threshold) {
+    public static int countValidPairs(int[] nums, int threshold) {
         int index = 0, count = 0;
         while (index < nums.length - 1) {
             if (nums[index + 1] - nums[index] <= threshold) {
@@ -186,6 +208,81 @@ public class binarysearch {
             index++;
         }
         return count;
+    }
+    public static boolean googleMinArrPossible(int m,int[] nums){
+        int g[]=new int[nums.length];
+        for(int i=0;i<nums.length;i++) g[i]=nums[i];
+        for(int i=nums.length-1;i>=1;i--) g[i-1]=g[i-1]+Math.abs(g[i]-m);
+        return g[0]<=m;
+    }
+    public static boolean amazonLongPossible(ArrayList<Integer> subList,int m,int k){
+        int x=0;
+        for(int i=1;i<m;i++) x=x+(subList.get(i)-subList.get(i-1)-1);
+        if(x<=k) return true;
+        for(int i=m;i<subList.size();i++){
+            x=x+(subList.get(i)-subList.get(i-1)-1);
+            x=x-(subList.get(i-m+1)-subList.get(i-m)-1);
+            if(x<=k) return true;
+        }
+        return false;
+    }
+    public static int paypalJobSchedulePossible(int n, int m,int k,int val){
+        int retVal=0,l=val,h=val;
+        int g[]=new int[n];
+        g[k-1]=val;
+        for(int i=k;i<n;i++){
+            if(g[i-1]-1<=0) g[i]=1;
+            else g[i]=g[i-1]-1;
+            l=l+g[i];
+        }
+        for(int i=k-2;i>=0;i--){
+            if(g[i+1]-1<=0) g[i]=1;
+            else g[i]=g[i+1]-1;
+            l=l+g[i];
+        }
+        for(int i=k;i<n;i++){
+            g[i]=g[i-1]+1;
+            h=h+g[i];
+        }
+        for(int i=k-2;i>=0;i--){
+            g[i]=g[i+1]+1;
+            h=h+g[i];
+        }
+        if(l<=m && m<=h) retVal=1;
+        else if(m>h) retVal=2;
+        else if(m<l) retVal=3;
+        return retVal;
+    }
+    public static boolean infosysTruckChk(int m,int n,int k,int[] nums){
+        int i=0,totK=0;
+        while(i<n){
+            int ki = infosysTruckSol(m,nums[i]);
+            totK+=ki;
+            i++;
+        }
+        return totK>=k;
+    }
+    public static boolean maxPosGreatCheck(int[] nums,int mid){
+        if(mid==0) return true;
+        int n=nums.length-1,i=mid-1;
+        while(i>=0){
+            if(nums[n]<=nums[i]) return false;
+            n--;
+            i--;
+        }
+        return true;
+    }
+    public static int maxChaco(int G){
+        if(G%2==0){
+            return  (G/2*(G/2 + 1));
+        }
+        else{
+            int V = G/2;
+            int Y = G/2 + 1; 
+            int G1 = V*(V+1)/2 ; //where V = G//2(rough division.)
+            int G2 = Y*(Y+1)/2 ; //where Y = G//2 + 1 
+            return (G1 + G2); 
+        }
     }
     /////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////
@@ -573,5 +670,111 @@ public static int findMiddleOccurceArr(int[]nums,int target)
             }else r=m-1;
         }
         return ans;
+    }
+    public static int googleMinArr(int[] nums){
+        int ans=0,l=0,r=Arrays.stream(nums).max().getAsInt(),m=-1;
+        while(l<=r){
+            m=(l+r)/2;
+            if(googleMinArrPossible(m,nums)){
+                ans=m;
+                r=m-1;
+            }else l=m+1;
+        }
+        return ans;
+    }
+    public static int amazonLongSubArr(int[] nums,int k){
+        int ans=0,res=0,l=0,m=-1;
+        List<Integer> num=Arrays.stream( nums ).boxed().collect( Collectors.toList() );
+        ArrayList<Integer> numsList = new ArrayList<Integer>(num);
+        HashMap<Integer,ArrayList<Integer>> hash= new HashMap<>();
+        for(int i=0;i<nums.length;i++){
+            int key = numsList.get(i);
+            if(!hash.containsKey(nums[i])) hash.put(nums[i],new ArrayList<Integer>());
+            hash.get(key).add(i);
+        }
+        for(Map.Entry<Integer,ArrayList<Integer>> entry : hash.entrySet()){
+            ArrayList<Integer> subList = entry.getValue();
+            int h = subList.size();
+            while(l<=h){
+                m=(l+h)/2;
+                if(amazonLongPossible(subList,m,k)){
+                    res=m;
+                    l=m+1;
+                }else h=m-1;
+            }
+            ans=Math.max(ans,res);
+        }
+        return ans;
+    }
+    public static int paypalJobSchedule(int n, int m,int k){
+        int l=1,h=m,mid=-1,flag=0,ans=-1,check;
+        while(l<=h && flag==0){
+            mid=(l+h)/2;
+            check=paypalJobSchedulePossible(n,m,k,mid);
+            if(check==1){
+                if(paypalJobSchedulePossible(n,m,k,mid+1)!=1){
+                    flag=1;
+                    ans=mid;
+                }else{
+                    l=mid+1;
+                }
+            }else{
+                if(check==2) l=mid+1;
+                else h=mid-1;
+            }
+        }
+        return ans;
+    }public static int infosysTruckSol(int time,int speed){
+        int l=0,h=10000000,optiPacket=0,m=-1;
+        while(l<=h){
+            m=(l+h)/2;
+            int timeTaken = speed*(m*m-m+1);
+            if(timeTaken<=time){
+                if(timeTaken==time) return m;
+                else{
+                    optiPacket=Math.max(optiPacket,m);
+                    l=m+1;
+                }
+            }else h=m-1;
+        }
+        return optiPacket;
+    }
+    public static int infosysTruckTime(int k,int[] nums){
+        int l=1,h=(int)Long.MAX_VALUE,flag=0,m=-1,ans=-1,n=nums.length;
+        while(l<=h && flag==0){
+            m=(l+h)/2;
+            if(infosysTruckChk(m,n,k,nums)){
+                if(m==1){
+                    flag=1;
+                    ans=1;
+                }else{
+                    if(!infosysTruckChk(m-1,n,k,nums)){
+                        ans=m;
+                        flag=1;
+                    }else h=m-1;
+                }
+            }else l=m+1;
+        }
+        return ans;
+    }
+    public static int maxPosGreat(int[] nums){
+        int ans=0,l=1,h=nums.length,m=-1;
+        while(l<=h){
+            m=(l+h)/2;
+            if(maxPosGreatCheck(nums,m) && !maxPosGreatCheck(nums,m+1)) return m;
+            else if(maxPosGreatCheck(nums,m) && maxPosGreatCheck(nums,m+1)) l=h+1;
+            else h=m-1;
+        }
+        return ans;
+    }
+    public static int maxChacoDay(int num){
+        int l=0,h=num,m=-1;
+        while(l<=h){
+            m=(l+h)/2;
+            if(maxChaco(m)>num){
+                h=m-1;
+            }else l=m+1;
+        }
+        return l;
     }
 }

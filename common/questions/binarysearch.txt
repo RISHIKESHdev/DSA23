@@ -19,3 +19,9 @@
 19. Frog Jump II (leet 2498)
 20. Minimize the Maximum Difference of Pairs (2616)
 21. Maximum number of stock portfolios (De shaw)
+22. Minimize maximum possible value (Google)
+23. Longest contigious subarray of equal value (Amazon)
+24. Job Scheduler (PayPal).
+25. Time for truck to deliver (Infosys).
+26. Maximum possible greatness in a Array.
+27. Maximum Chocolate in Triangle days.

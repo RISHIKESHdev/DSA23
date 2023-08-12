@@ -32,6 +32,15 @@ public class twopointer {
             case 7: // Move Zeroes
                 System.out.println(Arrays.toString(moveZeroes(input.getNumArr(in))));
                 break;
+            case 8: // close sum possible two sorted array
+                System.out.println(Arrays.toString(closeSumSortArr(input.getNum(in),input.getNumArrAsen(in),input.getNumArrAsen(in))));
+                break;
+            case 9: // squares of sorted array
+                System.out.println(Arrays.toString(sortedSquares(input.getNumArrAsen(in))));
+                break;
+            case 10: // longest subarray atmost k
+                System.out.println(atMostSum(input.getNumArr(in),input.getNum(in)));
+                break;
         }
         in.close();
     }
@@ -134,4 +143,65 @@ public class twopointer {
         }
         return nums;
     }
+    public static int[] closeSumSortArr(int x,int[] A,int[] B){
+        int booli=0,boolj=0,fir=-1,sec=-1,prevCom=1000000,first=-1,second=-1,i=0,j=B.length-1,ans=0;
+        while(i<B.length && j>=0){
+            if(A[i]+B[j]<=x){
+                if(A[i]+B[j] > ans){
+                    first=A[i];
+                    second=B[j];
+                    booli=1;
+                }
+                i++;
+            }else{
+                if(A[i]+B[j]<prevCom){
+                    prevCom=A[i]+B[j];
+                    fir=A[i];
+                    sec=B[j];
+                    boolj=1;
+                }
+                j--;
+            }
+        }
+        if(booli==1 && boolj==1){
+            if(first+second -x >= fir+sec-x) return new int[]{fir,sec};
+            else return new int[]{first,second};
+        }else if(boolj==1) return new int[]{fir,sec};
+        else return new int[]{first,second};
+    }
+    public static int[] sortedSquares(int[] nums){
+        int[] ans = new int[nums.length];
+        int i=0,j=nums.length-1,s1=0,s2=0;
+        int l=nums.length-1;
+        while(i<=j){
+            s1=nums[i]*nums[i];
+            s2=nums[j]*nums[j];
+            if(s1<s2){
+                ans[l--]=s2;
+                j--;
+            }else{
+                ans[l--]=s1;
+                i++;        
+            }
+        }
+        return ans;
+    }
+    public static int atMostSum(int[] arr, int k)
+  {
+    int n=arr.length;
+    int result = Integer.MIN_VALUE;
+    for (int i = 0; i < n; i++) {
+      int sum = 0;
+      for (int j = i; j < n; j++) {
+        sum += arr[j];
+        if (sum <= k) {
+            result = Math.max(result, (j - i + 1));
+        }
+        else {
+          break;
+        }
+      }
+    }
+    return result;
+  }
 }

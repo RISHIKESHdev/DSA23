@@ -8,3 +8,6 @@
 8.  You are given two sorted arrays ; both arrays were of size N ;  you have to find a pair of numbers such that sum of those numbers <=x and as close as possible to x.
 9.  Squares of a Sorted Array (977)
 10. Longest Subarray having sum of elements atmost ‘k’ (GFG)
+11. discuss/interview-question/3549864/Google-or-sliding-window/1913505 (leet)
+12. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit (leet 1438).
+13. Number of subarrays having sum less than K (GFG)

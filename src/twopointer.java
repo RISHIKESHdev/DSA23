@@ -1,6 +1,8 @@
 package src;
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.Scanner;
 
 import common.*;
@@ -40,6 +42,15 @@ public class twopointer {
                 break;
             case 10: // longest subarray atmost k
                 System.out.println(atMostSum(input.getNumArr(in),input.getNum(in)));
+                break;
+            case 11: // Google tower view angle
+                System.out.println(googleTowerAngle(input.getNumArrAsen(in),input.getNum(in)));
+                break;
+            case 12: // longest subarray with absolute diff atmost limit
+                System.out.println(longestSubarray(input.getNumArr(in),input.getNum(in)));
+                break;
+            case 13: // Number of subarrays having sum less than K
+                System.out.println(countSubarrayKLess(input.getNumArr(in),input.getNum(in)));
                 break;
         }
         in.close();
@@ -204,4 +215,51 @@ public class twopointer {
     }
     return result;
   }
+  public static int googleTowerAngle(int[] nums,int k){
+    int ans=0,i=0,j=0;
+    int angle[] = new int[2*nums.length];
+    for(int x=0;x<nums.length;x++){
+        angle[x]=nums[x];
+        angle[x+nums.length]=nums[x]+360;
+    }
+    while(j<angle.length){
+        if(angle[j]-angle[i]<=k) ans=Math.max(ans,j-i+1);
+        while(angle[j]-angle[i]>k) i++;
+        j++;
+    }
+    return ans;
+  }
+  public static int longestSubarray(int[] nums, int limit) {
+        int i=0,j=0,max=-1,min=-1;
+        Deque<Integer> stackMax = new ArrayDeque<>();
+        Deque<Integer> stackMin = new ArrayDeque<>();
+        for(;j<nums.length;j++){
+            while(!stackMax.isEmpty() && nums[stackMax.peek()]<nums[j]) stackMax.poll();
+            stackMax.push(j);
+            while(!stackMin.isEmpty() && nums[stackMin.peek()]>nums[j]) stackMin.poll();
+            stackMin.push(j);
+            max=stackMax.getLast();
+            min=stackMin.getLast();
+            if(nums[max]-nums[min]>limit){
+                if(max==i) stackMax.pollLast();
+                else if(min==i) stackMin.pollLast();
+                i++;
+            }
+        }
+        return j-i;
+    }
+    public static int countSubarrayKLess(int[] nums,int k){
+        int i=0,j=0,ans=0,sum=nums[0];
+        while(j<nums.length && i<nums.length){
+            if(sum<k){
+                j++;
+                if(j>i) ans+=j-i;
+                sum+=nums[j];
+            }else{
+                sum-=nums[j];
+                i++;
+            }
+        }
+        return ans;
+    }
 }

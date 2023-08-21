@@ -11,3 +11,5 @@
 11. discuss/interview-question/3549864/Google-or-sliding-window/1913505 (leet)
 12. Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit (leet 1438).
 13. Number of subarrays having sum less than K (GFG)
+14. practice.geeksforgeeks.org/problems/count-the-number-of-subarrays/1 (GFG)
+15. Count pairs in a sorted array whose sum is less than x (GFG)

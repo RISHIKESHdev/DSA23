@@ -52,6 +52,12 @@ public class twopointer {
             case 13: // Number of subarrays having sum less than K
                 System.out.println(countSubarrayKLess(input.getNumArr(in),input.getNum(in)));
                 break;
+            case 14: //Count subarray sum in range
+                System.out.println(countSubarrayKRange(input.getNumArr(in),input.getNum(in),input.getNum(in)));
+                break;
+            case 15: //Count pairs in a sorted array whose sum is less than x
+                System.out.println(countSortSubarrayKLess(input.getNumArrAsen(in),input.getNum(in)));
+                break;
         }
         in.close();
     }
@@ -253,12 +259,25 @@ public class twopointer {
         while(j<nums.length && i<nums.length){
             if(sum<k){
                 j++;
-                if(j>i) ans+=j-i;
-                sum+=nums[j];
+                if(j>=i) ans+=j-i;
+                if(j<nums.length) sum+=nums[j];
             }else{
-                sum-=nums[j];
+                sum-=nums[i];
                 i++;
             }
+        }
+        return ans;
+    }
+    public static int countSubarrayKRange(int[] nums,int l,int r){
+        return countSubarrayKLess(nums,r)-countSubarrayKLess(nums,l-1);
+    }
+    public static int countSortSubarrayKLess(int[] nums,int k){
+        int i=0,j=nums.length-1,ans=0;
+        while(i<j){
+            if(nums[j]+nums[i]<k){
+                ans+=j-i;
+                i++;
+            }else j--;
         }
         return ans;
     }

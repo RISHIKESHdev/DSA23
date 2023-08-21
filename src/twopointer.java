@@ -3,6 +3,7 @@ package src;
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import common.*;
@@ -57,6 +58,18 @@ public class twopointer {
                 break;
             case 15: //Count pairs in a sorted array whose sum is less than x
                 System.out.println(countSortSubarrayKLess(input.getNumArrAsen(in),input.getNum(in)));
+                break;
+            case 16: //Max Sum Continuous Subarray of size K
+                System.out.println(maxSumSubarrayK(input.getNumArr(in),input.getNum(in)));
+                break;
+            case 17: //Minimum list of processor after removing k (Amazon)
+                System.out.println(amazonMinProcessRemoveK(input.getNumArr(in),input.getNum(in)));
+                break;
+            case 18: //Minimum no of groups (Amazon)
+                System.out.println(amazonMinGroupKDiff(input.getNumArr(in),input.getNum(in)));
+                break;
+            case 19: //Longest K unique characters substring
+                System.out.println(longKUniqueSubStr(input.getString(in),input.getNum(in)));
                 break;
         }
         in.close();
@@ -280,5 +293,59 @@ public class twopointer {
             }else j--;
         }
         return ans;
+    }
+    public static int maxSumSubarrayK(int[] nums,int k){
+        int i=0,j=0,sum=0,max=Integer.MIN_VALUE;
+        for(j=0;j<nums.length;j++){
+            sum+=nums[j];
+            if(j-i+1==k){
+                max=Math.max(sum, max);
+                sum-=nums[i];
+                i++;
+            }
+        }
+        return max;
+    }
+    public static int amazonMinProcessRemoveK(int[] nums,int k){
+        int i=0,sum=0,totSum=0,max=Integer.MIN_VALUE;
+        for(int j=0;j<nums.length;j++){
+            totSum+=nums[j];
+            sum+=nums[j];
+            if(j-i+1==k){
+                max=Math.max(sum,max);
+                sum-=nums[i];
+                i++;
+            }
+        }
+        return totSum-max;
+    }
+    public static int amazonMinGroupKDiff(int[] nums,int k){
+        Arrays.sort(nums);
+        int l=0,ans=0;
+        for(int r=0;r<nums.length;r++){
+            if(nums[r]-nums[l]>k){
+                ans+=1;
+                l=r;
+            }
+        }
+        return ans+1;
+    }
+    public static int longKUniqueSubStr(String str,int k){
+        int i=0,j=0,maxlength=0;
+        HashMap<Character,Integer> hash = new HashMap<>();
+        while(j<str.length()){
+            char ch = str.charAt(j);
+            hash.put(ch,hash.getOrDefault(ch, 0)+1);
+            while(hash.size()>k){
+                char ch1=str.charAt(i);
+                hash.put(ch,hash.getOrDefault(ch1, 0)-1);
+                if(hash.get(ch1)==0) hash.remove(ch1);
+                i++;
+            }
+            if(hash.size()==k) maxlength=Math.max(maxlength, j-i+1);
+            j++;
+        }
+        if(maxlength==0) return -1;
+        return maxlength;
     }
 }

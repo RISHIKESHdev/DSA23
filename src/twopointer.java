@@ -71,6 +71,9 @@ public class twopointer {
             case 19: //Longest K unique characters substring
                 System.out.println(longKUniqueSubStr(input.getString(in),input.getNum(in)));
                 break;
+            case 20: //amazon stock
+                System.out.println(amazonStockContiK(input.getNumArr(in),input.getNum(in)));
+                break;
         }
         in.close();
     }
@@ -348,4 +351,23 @@ public class twopointer {
         if(maxlength==0) return -1;
         return maxlength;
     }
+    public static int amazonStockContiK(int[] nums, int k){
+        int i=0,j=0,sum=0,ans=0,n=nums.length;
+        HashMap<Integer,Integer> hash = new HashMap<>(); 
+        while(j<n) {
+            hash.put(nums[j], hash.getOrDefault(nums[j],0)-1);
+            if(hash.getOrDefault(nums[j], 0)>1){
+                i=j; sum=0;
+                hash.put(nums[j], hash.getOrDefault(nums[j],0)-1);
+            }
+            sum+=nums[j];
+            if(j-i+1>=k){
+                ans=Math.max(ans, sum);
+                sum-=nums[1];
+                i++;
+            }
+            j++;
+        }
+        return ans;
+    }        
 }

@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import common.*;
@@ -73,6 +74,18 @@ public class twopointer {
                 break;
             case 20: //amazon stock
                 System.out.println(amazonStockContiK(input.getNumArr(in),input.getNum(in)));
+                break;
+            case 21: //Count number of substrings having at least K distinct characters
+                System.out.println(subStrAtleastK(input.getString(in),input.getNum(in)));
+                break;
+            case 22: //Given two strings A and B, find if A is a subsequence of B.
+                System.out.println(chkSubseqAB(input.getString(in),input.getString(in)));
+                break;
+            case 23: //Highly profitable months in k interval
+                System.out.println(highProfMonthK(input.getNumArr(in),input.getNum(in)));
+                break;
+            case 24: //First Unique Character in a String
+                System.out.println(firstUniqChar(input.getString(in)));
                 break;
         }
         in.close();
@@ -369,5 +382,69 @@ public class twopointer {
             j++;
         }
         return ans;
-    }        
+    }
+    public static int subStrAtleastK(String str,int k){
+        int n = str.length();
+        Map<Character, Integer> mp = new HashMap<>();
+        int begin = 0, end = 0;
+        int ans = 0;
+        while (end < n) {
+            char c = str.charAt(end);
+            mp.put(c,mp.getOrDefault(c,0)+1);
+            end++;
+            while (mp.size() >= k) {
+                char pre = str.charAt(begin);
+                mp.put(pre,mp.getOrDefault(pre,0)-1);
+                if (mp.get(pre)==0){
+                    mp.remove(pre);
+                }
+                ans += str.length() - end + 1;
+                begin++;
+            }
+        }
+        return ans;
+    }
+    public static boolean chkSubseqAB(String A,String B){
+        int i=0,j=0;
+        while(i<A.length() && j<B.length()){
+            if(A.charAt(i)==B.charAt(j)){
+                i++;
+                j++;
+            }else j++;
+        }
+        return i==A.length();
+    }
+    public static int highProfMonthK(int[] nums,int k){
+        int i = 1,n=nums.length,count = 0,c = 0;
+ 
+        while(i <= n) {
+            if(i >= 2 && nums[i] > nums[i-1]) {
+                c++;
+            }
+            else {
+                int f = c + 1;
+                int q = k;
+ 
+                if(f >= q && q >= 2) {
+                    count += Math.abs(f-q) + 1;
+                }
+                c = 0;
+            }
+            i++;
+        }
+ 
+        int f = c + 1;
+        int q = k;
+ 
+        if(f >= q) {
+            count += Math.abs(f-q) + 1;
+        }
+        return count;
+    }
+    public static int firstUniqChar(String s) {
+        HashMap<Character,Integer> hash = new HashMap<>();
+        for(int i=0;i<s.length();i++) hash.put(s.charAt(i),hash.getOrDefault(s.charAt(i),-1)+1);
+        for(int i=0;i<s.length();i++) if(hash.get(s.charAt(i))==0) return i;
+        return -1;
+    }
 }

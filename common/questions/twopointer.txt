@@ -18,3 +18,7 @@
 18. Given list of movies, and a variable k representing maximum allowed difference, we need to group the movies into groups. No groups can have movies which has difference amongst them greater than m. We need to return minimum number of groups which follows the condition. (Amazon)
 19. Longest K unique characters substring/
 20. https://drive.google.com/file/d/1QUgMhIVafZU9QqHL981dmWbN3XwgmUbt/view?usp=sharing
+21. Count number of substrings having at least K distinct characters (GFG)
+22. Given two strings A and B, find if A is a subsequence of B. (GFG)
+23. Highly profitable months in k interval
+24. First Unique Character in a String (leet 387)
